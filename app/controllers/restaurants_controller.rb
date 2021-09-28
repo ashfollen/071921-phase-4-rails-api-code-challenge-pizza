@@ -3,12 +3,12 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_record_not_found_respons
 
     def index
        restaurants = Restaurant.all 
-       render json: restaurants.to_json(except: [:created_at, :updated_at])
+       render json: restaurants   
     end 
     
     def show
         restaurant = find_restaurant
-        render json: restaurant.to_json(except: [:created_at, :updated_at], include: [ pizzas: { except: [:created_at, :updated_at]}])
+        render json: restaurant, serializer: RestaurantWithPizzasSerializer        
     end 
     
     def destroy
